@@ -206,27 +206,26 @@ func init() {
 }
 
 type builderFlags struct {
-	globalFlags   string
-	arFlags       string
-	asFlags       string
-	cFlags        string
-	toolingCFlags string // Seperate set of Cflags for clang LibTooling tools
-	conlyFlags    string
-	cppFlags      string
-	ldFlags       string
-	libFlags      string
-	yaccFlags     string
-	protoFlags    string
-	tidyFlags     string
-	sAbiFlags     string
-	yasmFlags     string
-	aidlFlags     string
-	rsFlags       string
-	toolchain     config.Toolchain
-	clang         bool
-	tidy          bool
-	coverage      bool
-	sAbiDump      bool
+	globalFlags string
+	arFlags     string
+	asFlags     string
+	cFlags      string
+	conlyFlags  string
+	cppFlags    string
+	ldFlags     string
+	libFlags    string
+	yaccFlags   string
+	protoFlags  string
+	tidyFlags   string
+	sAbiFlags   string
+	yasmFlags   string
+	aidlFlags   string
+	toolchain   config.Toolchain
+	clang       bool
+	sdclang     bool
+	tidy        bool
+	coverage    bool
+	sAbiDump    bool
 
 	systemIncludeFlags string
 
@@ -385,7 +384,7 @@ func TransformSourceToObj(ctx android.ModuleContext, subdir string, srcFiles and
 
 		ccDesc := ccCmd
 
-			if ctx.Device() && config.SDClang {
+			if flags.sdclang {
 				ccCmd = "${config.SDClangBin}/" + ccCmd
 				extraFlags = " ${config.SDClangFlags}"
 			} else {
@@ -574,7 +573,7 @@ func TransformObjToDynamicBinary(ctx android.ModuleContext,
 	var ldCmd string
 	var extraFlags string
 	if flags.clang {
-		if ctx.Device() && config.SDClang {
+		if flags.sdclang {
 			ldCmd = "${config.SDClangBin}/clang++"
 			extraFlags = " ${config.SDClangFlags}"
 		} else {
@@ -726,7 +725,7 @@ func TransformObjsToObj(ctx android.ModuleContext, objFiles android.Paths,
 	var ldCmd string
         var extraFlags string
 	if flags.clang {
-		if ctx.Device() && config.SDClang {
+		if flags.sdclang {
 			ldCmd = "${config.SDClangBin}/clang++"
 			extraFlags = " ${config.SDClangFlags}"
 		} else {

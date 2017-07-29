@@ -97,6 +97,7 @@ func moduleToLibName(module string) (string, error) {
 
 func flagsToBuilderFlags(in Flags) builderFlags {
 	return builderFlags{
+<<<<<<< HEAD
 		globalFlags:   strings.Join(in.GlobalFlags, " "),
 		arFlags:       strings.Join(in.ArFlags, " "),
 		asFlags:       strings.Join(in.AsFlags, " "),
@@ -118,6 +119,28 @@ func flagsToBuilderFlags(in Flags) builderFlags {
 		coverage:      in.Coverage,
 		tidy:          in.Tidy,
 		sAbiDump:      in.SAbiDump,
+=======
+		globalFlags: strings.Join(in.GlobalFlags, " "),
+		arFlags:     strings.Join(in.ArFlags, " "),
+		asFlags:     strings.Join(in.AsFlags, " "),
+		cFlags:      strings.Join(in.CFlags, " "),
+		conlyFlags:  strings.Join(in.ConlyFlags, " "),
+		cppFlags:    strings.Join(in.CppFlags, " "),
+		yaccFlags:   strings.Join(in.YaccFlags, " "),
+		protoFlags:  strings.Join(in.protoFlags, " "),
+		aidlFlags:   strings.Join(in.aidlFlags, " "),
+		ldFlags:     strings.Join(in.LdFlags, " "),
+		libFlags:    strings.Join(in.libFlags, " "),
+		tidyFlags:   strings.Join(in.TidyFlags, " "),
+		sAbiFlags:   strings.Join(in.SAbiFlags, " "),
+		yasmFlags:   strings.Join(in.YasmFlags, " "),
+		toolchain:   in.Toolchain,
+		clang:       in.Clang,
+		sdclang:     in.Sdclang,
+		coverage:    in.Coverage,
+		tidy:        in.Tidy,
+		sAbiDump:    in.SAbiDump,
+>>>>>>> 51a8535... [build/soong] [SDCLANG] Add Android.bp property sdclang
 
 		systemIncludeFlags: strings.Join(in.SystemIncludeFlags, " "),
 

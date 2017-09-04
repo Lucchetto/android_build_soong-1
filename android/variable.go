@@ -94,7 +94,7 @@ type variableProperties struct {
 		}
 
 		// include AOS variables
-		*android.Product_variables
+		Aos android.Product_variables
 
 		Pdk struct {
 			Enabled *bool
@@ -174,7 +174,7 @@ type productVariables struct {
 	DeviceKernelHeaders []string `json:",omitempty"`
 
 	// include AOS variables
-	*android.ProductVariables
+	Aos android.ProductVariables
 }
 
 func boolPtr(v bool) *bool {

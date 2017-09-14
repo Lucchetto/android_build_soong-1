@@ -20,7 +20,7 @@ import (
 	"runtime"
 	"strings"
 
-	"aos/soong/android"
+	"aos/soong/android_aos"
 
 	"github.com/google/blueprint/proptools"
 )
@@ -93,12 +93,12 @@ type variableProperties struct {
 			Cppflags []string
 		}
 
-		// include AOS variables
-		Aos android.Product_variables
-
 		Pdk struct {
 			Enabled *bool
 		}
+
+                // include AOS variables
+                Aos android_aos.Product_variables
 	} `android:"arch_variant"`
 }
 
@@ -174,7 +174,7 @@ type productVariables struct {
 	DeviceKernelHeaders []string `json:",omitempty"`
 
 	// include AOS variables
-	Aos android.ProductVariables
+	Aos android_aos.ProductVariables
 }
 
 func boolPtr(v bool) *bool {

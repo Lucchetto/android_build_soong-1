@@ -70,7 +70,7 @@ var (
 	}
 
 	armArmCflags = []string{
-		"-O2",
+		"-O3",
 		"-fomit-frame-pointer",
 		"-fstrict-aliasing",
 		"-funswitch-loops",
@@ -78,7 +78,7 @@ var (
 
 	armThumbCflags = []string{
 		"-mthumb",
-		"-Os",
+		"-O3",
 		"-fomit-frame-pointer",
 		"-fno-strict-aliasing",
 	}

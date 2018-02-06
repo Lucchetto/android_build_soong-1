@@ -32,7 +32,6 @@ var (
 		"-Wno-unused",
 		"-Winit-self",
 		"-Wpointer-arith",
-		"-Wno-inconsistent-missing-override",
 
 		// COMMON_RELEASE_CFLAGS
 		"-DNDEBUG",
@@ -45,23 +44,22 @@ var (
 		"-fdiagnostics-color",
 
 		// TARGET_ERROR_FLAGS
-		"-Wno-error=return-type",
-		"-Wno-error=non-virtual-dtor",
-		"-Wno-error=address",
-		"-Wno-error=sequence-point",
-		"-Wno-error=date-time",
+		"-Werror=return-type",
+		"-Werror=non-virtual-dtor",
+		"-Werror=address",
+		"-Werror=sequence-point",
+		"-Werror=date-time",
 	}
 
 	hostGlobalCflags = []string{}
 
 	commonGlobalCppflags = []string{
-		"-Wno-inconsistent-missing-override",
 		"-Wsign-promo",
 	}
 
 	noOverrideGlobalCflags = []string{
-		"-Wno-error=int-to-pointer-cast",
-		"-Wno-error=pointer-to-int-cast",
+		"-Werror=int-to-pointer-cast",
+		"-Werror=pointer-to-int-cast",
 	}
 
 	IllegalFlags = []string{
@@ -139,7 +137,7 @@ func init() {
 		if override := config.(android.Config).Getenv("LLVM_PREBUILTS_VERSION"); override != "" {
 			return override, nil
 		}
-		return "clang-3859424", nil
+		return ClangDefaultVersion, nil
 	})
 	pctx.StaticVariable("ClangPath", "${ClangBase}/${HostPrebuiltTag}/${ClangVersion}")
 	pctx.StaticVariable("ClangBin", "${ClangPath}/bin")
@@ -148,7 +146,7 @@ func init() {
 		if override := config.(android.Config).Getenv("LLVM_RELEASE_VERSION"); override != "" {
 			return override, nil
 		}
-		return "4.0", nil
+		return ClangDefaultShortVersion, nil
 	})
 	pctx.StaticVariable("ClangAsanLibDir", "${ClangPath}/lib64/clang/${ClangShortVersion}/lib/linux")
 

@@ -130,35 +130,35 @@ func init() {
 
 	pctx.SourcePathVariable("ClangDefaultBase", ClangDefaultBase)
 	pctx.VariableFunc("ClangBase", func(config interface{}) (string, error) {
-		if override := config.(android.Config).Getenv("6.0"); override != "" {
+		if override := config.(android.Config).Getenv("LLVM_PREBUILTS_BASE"); override != "" {
 			return override, nil
 		}
 		return "${ClangDefaultBase}", nil
 	})
 	pctx.VariableFunc("ClangVersion", func(config interface{}) (string, error) {
-		if override := config.(android.Config).Getenv("6.0"); override != "" {
+		if override := config.(android.Config).Getenv("LLVM_PREBUILTS_VERSION"); override != "" {
 			return override, nil
 		}
-		return "6.0", nil
+		return "clang-3859424", nil
 	})
 	pctx.StaticVariable("ClangPath", "${ClangBase}/${HostPrebuiltTag}/${ClangVersion}")
 	pctx.StaticVariable("ClangBin", "${ClangPath}/bin")
 
 	pctx.VariableFunc("ClangShortVersion", func(config interface{}) (string, error) {
-		if override := config.(android.Config).Getenv("6.0"); override != "" {
+		if override := config.(android.Config).Getenv("LLVM_RELEASE_VERSION"); override != "" {
 			return override, nil
 		}
-		return "6.0", nil
+		return "4.0", nil
 	})
-	pctx.StaticVariable("ClangAsanLibDir", "${ClangPath}/lib/clang/6.0.0/lib/linux")
+	pctx.StaticVariable("ClangAsanLibDir", "${ClangPath}/lib64/clang/${ClangShortVersion}/lib/linux")
 
 	// These are tied to the version of LLVM directly in external/llvm, so they might trail the host prebuilts
 	// being used for the rest of the build process.
 	pctx.SourcePathVariable("RSClangBase", "prebuilts/clang/host")
-	pctx.SourcePathVariable("RSClangVersion", "6.0")
-	pctx.SourcePathVariable("RSReleaseVersion", "6.0")
+	pctx.SourcePathVariable("RSClangVersion", "clang-3289846")
+	pctx.SourcePathVariable("RSReleaseVersion", "3.8")
 	pctx.StaticVariable("RSLLVMPrebuiltsPath", "${RSClangBase}/${HostPrebuiltTag}/${RSClangVersion}/bin")
-	pctx.StaticVariable("RSIncludePath", "${RSClangBase}/${HostPrebuiltTag}/${RSClangVersion}/lib/clang/6.0.0/include")
+	pctx.StaticVariable("RSIncludePath", "${RSLLVMPrebuiltsPath}/../lib64/clang/${RSReleaseVersion}/include")
 
 	pctx.PrefixedExistentPathsForSourcesVariable("RsGlobalIncludes", "-I",
 		[]string{

@@ -103,9 +103,6 @@ func init() {
 	}, " "))
 
 	pctx.StaticVariable("ClangExtraCppflags", strings.Join([]string{
-		// Disable -Winconsistent-missing-override until we can clean up the existing
-		// codebase for it.
-		"-Wno-inconsistent-missing-override",
 
 		// Bug: http://b/29823425 Disable -Wnull-dereference until the
 		// new instances detected by this warning are fixed.
@@ -128,6 +125,7 @@ func init() {
 		// fixed.
 		//"-Werror=null-dereference",
 		"-Werror=return-type",
+		"-Wno-error",
 	}, " "))
 }
 
